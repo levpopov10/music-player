@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Музичний плеєр</title>
+</head>
+<body>
+  <h1>Оберіть теку з музикою</h1>
+  <input type="file" id="folderInput" webkitdirectory directory mozdirectory>
+  <ul id="musicList"></ul>
+  <style>
+  	body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 20px auto;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+li {
+  margin: 10px 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 200px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px;
+  padding: 10px;
+}
+
+audio {
+  width: 100%;
+}
+
+  </style>
+  <script >
+document.getElementById('folderInput').addEventListener('change', function (event) {
+  var fileList = event.target.files;
+  var list = document.getElementById('musicList');
+  list.innerHTML = ''; // очистити список перед доданням нових файлів
+
+  for (var i = 0; i < fileList.length; i++) {
+    var listItem = document.createElement('li');
+    var audio = document.createElement('audio');
+    var source = document.createElement('source');
+
+    source.src = URL.createObjectURL(fileList[i]);
+    audio.appendChild(source);
+    audio.controls = true;
+    listItem.appendChild(audio);
+    list.appendChild(listItem);
+  }
+});
+
+  </script>
+</body>
+</html>
